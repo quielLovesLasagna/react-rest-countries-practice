@@ -11,12 +11,13 @@ const API = "https://restcountries.com/v3.1/";
 export default function App() {
 	const [query, setQuery] = useState("");
 	const [countries, setCountries] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
 
 	useEffect(function () {
 		async function getAllCountries() {
 			try {
+				setIsLoading(true);
 				setError("");
 
 				const res = await fetch(`${API}all`);
