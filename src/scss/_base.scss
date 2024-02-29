@@ -10,6 +10,7 @@
 
 body {
 	font-family: abs.$ff-poppins;
+	font-size: abs.toRem(16px);
 }
 
 img,
@@ -23,9 +24,10 @@ svg {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: abs.toRem(90px);
+	gap: abs.toRem(30px);
 	padding: abs.toRem(20px);
 	box-shadow: 0 abs.toRem(10px) abs.toRem(20px) rgba(abs.$cl-black, 0.2);
+	flex-wrap: wrap;
 }
 
 // SEARCH
@@ -36,7 +38,7 @@ svg {
 		font-family: inherit;
 		font-size: abs.toRem(16px);
 		padding: abs.toRem(10px);
-		width: abs.toRem(300px);
+		width: 100%;
 	}
 }
 
@@ -52,6 +54,7 @@ svg {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(abs.toRem(200px), 1fr));
 	gap: abs.toRem(30px);
+	justify-items: center;
 	position: relative;
 }
 
@@ -63,9 +66,16 @@ svg {
 }
 
 .country {
-	box-shadow: 0 abs.toRem(5px) abs.toRem(20px) rgba(abs.$cl-black, 0.2);
+	cursor: pointer;
 	border-radius: abs.toRem(10px);
+	box-shadow: 0 abs.toRem(5px) abs.toRem(20px) rgba(abs.$cl-black, 0.2);
 	overflow: hidden;
+	transition: all 0.2s;
+
+	&:hover {
+		transform: scale(1.1);
+		box-shadow: 0 abs.toRem(10px) abs.toRem(5px) rgba(abs.$cl-black, 0.2);
+	}
 
 	&__image {
 		width: abs.toRem(300px);
@@ -82,4 +92,13 @@ svg {
 		word-wrap: break-word;
 		line-height: 1;
 	}
+}
+
+.sort__btn {
+	cursor: pointer;
+	font-family: inherit;
+	font-size: inherit;
+	border: 1px solid abs.$cl-black;
+	padding: abs.toRem(10px);
+	border-radius: abs.toRem(30px);
 }
