@@ -5,6 +5,7 @@ import Country from "./Country";
 import Loader from "./Loader";
 import Error from "./Error";
 import Button from "./Button";
+import { useFetchCountry } from "./useFetchCountry";
 
 const API = "https://restcountries.com/v3.1/";
 
@@ -13,6 +14,8 @@ export default function App() {
 	const [countries, setCountries] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
+
+	useFetchCountry(API, query, setIsLoading, setError, setCountries);
 
 	useEffect(function () {
 		async function getAllCountries() {
@@ -42,48 +45,6 @@ export default function App() {
 		}
 		getAllCountries();
 	}, []);
-
-	useEffect(
-		function () {
-			const controller = new AbortController();
-
-			async function getCountry() {
-				try {
-					setIsLoading(true);
-					setError("");
-
-					const res = await fetch(`${API}name/${query}`, {
-						signal: controller.signal,
-					});
-
-					if (!res.ok) {
-						throw new Error("Something when wrong with fetching countries");
-					}
-
-					const data = await res.json();
-
-					if (data.response === "False") {
-						throw new Error("Country not found");
-					}
-
-					setCountries(data);
-				} catch (err) {
-					if (err.name !== "AbortError") {
-						console.log(err.message);
-						setError(err.message);
-					}
-				} finally {
-					setIsLoading(false);
-				}
-			}
-			getCountry();
-
-			return function () {
-				controller.abort();
-			};
-		},
-		[query]
-	);
 
 	// ! -- Sort the countries alphabetically
 	function handleSort() {
